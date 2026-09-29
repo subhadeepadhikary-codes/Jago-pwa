@@ -7,9 +7,6 @@ import {
   Moon,
   Sun,
   Bell,
-  Monitor,
-  Smartphone,
-  Zap,
   DownloadCloud,
   ChevronDown,
 } from 'lucide-react';
@@ -22,15 +19,12 @@ export default function DesktopTopBar() {
     darkMode,
     toggleDarkMode,
     unreadCount,
-    aspectMode,
-    setAspectMode,
     canInstallPwa,
     installPwa,
     t,
   } = useApp();
 
   const [showLangMenu, setShowLangMenu] = useState(false);
-  const [showAspectMenu, setShowAspectMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,12 +36,6 @@ export default function DesktopTopBar() {
     if (searchQuery.trim()) {
       navigate('/explore');
     }
-  };
-
-  const aspectLabels = {
-    auto: { label: 'Auto (16:9 / 9:16)', icon: Zap },
-    desktop: { label: 'Desktop (16:9)', icon: Monitor },
-    mobile: { label: 'Mobile (9:16)', icon: Smartphone },
   };
 
   return (
@@ -74,86 +62,8 @@ export default function DesktopTopBar() {
         />
       </form>
 
-      {/* Right Controls: Aspect Ratio Switcher, Language, Install PWA, Dark Mode, Notifications */}
+      {/* Right Controls: Language, Install PWA, Dark Mode, Notifications */}
       <div className="flex items-center gap-3">
-        {/* Aspect Ratio Switcher (Desktop 16:9 vs Mobile 9:16) */}
-        <div className="relative">
-          <button
-            onClick={() => setShowAspectMenu(!showAspectMenu)}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all ${
-              darkMode
-                ? 'bg-white/5 border-white/10 hover:border-saffron/40'
-                : 'bg-slate-50 border-slate-200 hover:border-saffron/40 text-slate-700'
-            }`}
-            title="Aspect Ratio View Mode: Switch between Widescreen Desktop and Mobile simulation"
-          >
-            {aspectMode === 'desktop' && <Monitor className="w-3.5 h-3.5 text-saffron" />}
-            {aspectMode === 'mobile' && <Smartphone className="w-3.5 h-3.5 text-emerald-500" />}
-            {aspectMode === 'auto' && <Zap className="w-3.5 h-3.5 text-blue-500" />}
-            <span className="font-mono text-[11px]">{aspectLabels[aspectMode]?.label || 'Auto'}</span>
-            <ChevronDown className="w-3 h-3 opacity-60" />
-          </button>
-
-          {showAspectMenu && (
-            <div
-              className={`absolute right-0 mt-2 w-52 rounded-2xl shadow-xl border py-2 z-50 animate-in fade-in zoom-in-95 duration-100 ${
-                darkMode ? 'bg-navy-dark border-white/15 text-white' : 'bg-white border-slate-200 text-slate-800'
-              }`}
-            >
-              <div className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-inherit/40 mb-1">
-                Aspect Ratio / View Mode
-              </div>
-
-              <button
-                onClick={() => {
-                  setAspectMode('desktop');
-                  setShowAspectMenu(false);
-                }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs text-left font-medium transition-colors ${
-                  aspectMode === 'desktop' ? 'bg-saffron/15 text-saffron font-bold' : 'hover:bg-slate-100 dark:hover:bg-white/5'
-                }`}
-              >
-                <Monitor className="w-4 h-4 text-saffron" />
-                <div>
-                  <span className="block font-bold">Desktop Widescreen</span>
-                  <span className="text-[10px] text-slate-400">16:9 Aspect Ratio</span>
-                </div>
-              </button>
-
-              <button
-                onClick={() => {
-                  setAspectMode('mobile');
-                  setShowAspectMenu(false);
-                }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs text-left font-medium transition-colors ${
-                  aspectMode === 'mobile' ? 'bg-saffron/15 text-saffron font-bold' : 'hover:bg-slate-100 dark:hover:bg-white/5'
-                }`}
-              >
-                <Smartphone className="w-4 h-4 text-emerald-500" />
-                <div>
-                  <span className="block font-bold">Mobile Phone Mockup</span>
-                  <span className="text-[10px] text-slate-400">9:16 Aspect Ratio Frame</span>
-                </div>
-              </button>
-
-              <button
-                onClick={() => {
-                  setAspectMode('auto');
-                  setShowAspectMenu(false);
-                }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs text-left font-medium transition-colors ${
-                  aspectMode === 'auto' ? 'bg-saffron/15 text-saffron font-bold' : 'hover:bg-slate-100 dark:hover:bg-white/5'
-                }`}
-              >
-                <Zap className="w-4 h-4 text-blue-500" />
-                <div>
-                  <span className="block font-bold">Auto-Detect</span>
-                  <span className="text-[10px] text-slate-400">Adapts to window resizing</span>
-                </div>
-              </button>
-            </div>
-          )}
-        </div>
 
         {/* Language Dropdown (7 Indian Languages) */}
         <div className="relative">

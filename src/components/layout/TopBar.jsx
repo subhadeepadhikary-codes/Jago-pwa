@@ -1,4 +1,4 @@
-import { Bell, ChevronLeft, Sun, Moon, DoorOpen, Monitor } from 'lucide-react';
+import { Bell, ChevronLeft, Sun, Moon, DoorOpen } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
@@ -24,7 +24,7 @@ const pageTitles = {
 export default function TopBar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { unreadCount, darkMode, toggleDarkMode, aspectMode, setAspectMode, t } = useApp();
+  const { unreadCount, darkMode, toggleDarkMode, t } = useApp();
   const { logout } = useAuth();
 
   const handleLogout = () => {
@@ -94,20 +94,6 @@ export default function TopBar() {
 
         {/* Right: Logout (door) + Dark Mode toggle + Notifications Bell (OFFICER CONSOLE IS STRICTLY REMOVED) */}
         <div className="flex items-center gap-1.5">
-          {/* Switch to Desktop Widescreen (16:9) Mode */}
-          <button
-            onClick={() => setAspectMode(aspectMode === 'desktop' ? 'mobile' : 'desktop')}
-            title="Switch to Desktop Widescreen (16:9) View"
-            aria-label="Switch to Desktop View"
-            className={`w-8 h-8 flex items-center justify-center rounded-xl border transition-colors ${
-              darkMode
-                ? 'bg-white/10 border-white/10 text-saffron hover:bg-white/20'
-                : 'bg-slate-100 border-slate-200 text-saffron hover:bg-slate-200'
-            }`}
-          >
-            <Monitor className="w-4 h-4" />
-          </button>
-
           {/* Logout (Door Open Icon) */}
           <button
             onClick={handleLogout}

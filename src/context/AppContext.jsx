@@ -103,14 +103,7 @@ export function AppProvider({ children }) {
 
   const currentVersion = '1.0';
 
-  // Responsive Aspect Ratio & View Mode Management
-  // 'auto' = auto detects >= 768px as Desktop Widescreen (16:9) and <768px as Mobile Portrait (9:16)
-  // 'desktop' = forces Desktop Widescreen view
-  // 'mobile' = forces Mobile Phone frame simulation
-  const [aspectMode, setAspectModeState] = useState(() => {
-    return localStorage.getItem('jago_pwa_aspect_mode') || 'auto';
-  });
-
+  // Automatic Responsive Viewport Management (Desktop Widescreen >= 768px, Mobile Portrait < 768px)
   const [windowWidth, setWindowWidth] = useState(() => {
     return typeof window !== 'undefined' ? window.innerWidth : 1200;
   });
@@ -121,13 +114,7 @@ export function AppProvider({ children }) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const setAspectMode = (mode) => {
-    localStorage.setItem('jago_pwa_aspect_mode', mode);
-    setAspectModeState(mode);
-  };
-
-  const isDesktopView =
-    aspectMode === 'desktop' ? true : aspectMode === 'mobile' ? false : windowWidth >= 768;
+  const isDesktopView = windowWidth >= 768;
 
   // PWA Native Installation Support
   const [canInstallPwa, setCanInstallPwa] = useState(false);
@@ -590,8 +577,6 @@ export function AppProvider({ children }) {
         saveMediaFireFolderUrl,
         appLanguage,
         setAppLanguage,
-        aspectMode,
-        setAspectMode,
         isDesktopView,
         canInstallPwa,
         installPwa,
