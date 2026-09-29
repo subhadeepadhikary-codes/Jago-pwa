@@ -1,0 +1,12 @@
+{
+  "appId": "in.gov.tribal.jago",
+  "appName": "Jago",
+  "webDir": "dist",
+  "plugins": {
+    "StatusBar": {
+      "overlaysWebView": false,
+      "style": "DARK",
+      "backgroundColor": "#FFFFFF"
+    }
+  }
+}
